@@ -1,0 +1,1008 @@
+{
+    "type": "APL",
+    "version": "1.1",
+    "settings": {},
+    "theme": "dark",
+    "import": [
+        {
+            "name": "alexa-viewport-profiles",
+            "version": "1.1.0"
+        }
+    ],
+    "resources": [
+        {
+            "description": "Colors for the light theme",
+            "colors": {
+                "avoColorTextPrimaryLightTheme": "#151920ff",
+                "avoColorTextSecondaryLightTheme": "#151920bb"
+            }
+        },
+        {
+            "description": "Colors for the dark theme",
+            "colors": {
+                "avoColorTextPrimaryDarkTheme": "#f0f1efff",
+                "avoColorTextSecondaryDarkTheme": "#f0f1efbb"
+            }
+        },
+        {
+            "description": "BarChart Default Resources.",
+            "dimensions": {
+                "avoListElementTextPadding": "24dp",
+                "avoLegendLabelPadding": "20dp",
+                "avoMinBarPadding": "12dp",
+                "avoMaxBarHeight": "64dp",
+                "avoMinRowHeight": "62dp",
+                "avoTextSizeBarRow": "36dp",
+                "avoTextSizeTick": "20dp",
+                "avoTickWidth": "1dp",
+                "avoBarCapSize": "8dp",
+                "avoLegendLabelVerticalPadding": "5dp"
+            },
+            "booleans": {
+                "screenIsTiny": false
+            },
+            "colors": {
+                "avoBarDefaultColor": "#2ad4ffff",
+                "avoPrimaryTickColor": "#ffffffcc",
+                "avoSecondaryTicksColor": "#ffffff18"
+            },
+            "numbers": {
+                "avoBarLabelSizeCorrectionFactor": 1.1,
+                "avoAxisLabelSizeCorrectionFactor": 1.1,
+                "avoMaxHeaderWidthPercentage": 0.4,
+                "avoMaxLabelWidthPercentage": 0.5,
+                "avoBarAnimationDelay": 0,
+                "avoBarAnimationTime": 1000,
+                "avoPrimaryTextFadeInAnimationDelay": 150,
+                "avoSecondaryTextFadeInAnimationDelay": 300,
+                "avoPrimaryTextElementDelay": 50,
+                "avoSecondaryTextElementDelay": 100,
+                "avoTextAnimationTime": 500
+            }
+        },
+        {
+            "description": "BarChart Bishop resources.",
+            "when": "${@viewportProfile == @hubLandscapeLarge}",
+            "dimensions": {
+                "avoListElementTextPadding": "32dp",
+                "avoMinBarPadding": "16dp",
+                "avoMaxBarHeight": "58dp",
+                "avoTextSizeBarRow": "48dp",
+                "avoTextSizeTick": "24dp"
+            }
+        },
+        {
+            "description": "BarChart TV (Stark) resources.",
+            "when": "${@viewportProfileGroup == @tv}",
+            "dimensions": {
+                "avoListElementTextPadding": "${@avoListElementTextPadding / 2}",
+                "avoLegendLabelPadding": "${@avoLegendLabelPadding / 2}",
+                "avoMinBarPadding": "${@avoMinBarPadding / 2}",
+                "avoMaxBarHeight": "${@avoMaxBarHeight / 2}",
+                "avoMinRowHeight": "${@avoMinRowHeight / 2}",
+                "avoTextSizeBarRow": "${@avoTextSizeBarRow / 2}",
+                "avoTextSizeTick": "${@avoTextSizeTick / 2}",
+                "avoBarCapSize": "${@avoBarCapSize / 2}"
+            }
+        },
+        {
+            "description": "BarChart Checkers resources.",
+            "when": "${@viewportProfile == @hubLandscapeSmall}",
+            "dimensions": {
+                "avoListElementTextPadding": "24dp",
+                "avoLegendLabelPadding": "6dp",
+                "avoMinBarPadding": "10dp",
+                "avoMaxBarHeight": "36dp",
+                "avoMinRowHeight": "48dp",
+                "avoTextSizeBarRow": "26dp",
+                "avoTextSizeTick": "20dp",
+                "avoBarCapSize": "4dp"
+            }
+        },
+        {
+            "description": "BarChart Rook resources.",
+            "when": "${@viewportProfile == @hubRoundSmall}",
+            "dimensions": {
+                "avoListElementTextPadding": "12dp",
+                "avoLegendLabelPadding": "2dp",
+                "avoMinBarPadding": "12dp",
+                "avoMaxBarHeight": "28dp",
+                "avoMinRowHeight": "42dp",
+                "avoTextSizeBarRow": "24dp",
+                "avoTextSizeTick": "24dp",
+                "avoBarCapSize": "${@avoBarCapSize / 2}",
+                "maxHeaderWidth": "150dp"
+            },
+            "booleans": {
+                "screenIsTiny": true
+            },
+            "colors": {
+                "avoSecondaryTicksColor": "#ffffff00"
+            }
+        }
+    ],
+    "styles": {
+        "avoTextStyleBarRowLightTheme": {
+            "description": "BarChart default style for each row",
+            "values": [
+                {
+                    "color": "@avoColorTextPrimaryLightTheme",
+                    "fontWeight": "@avoDefaultElementFontWeight",
+                    "fontSize": "@avoTextSizeBarRow"
+                }
+            ]
+        },
+        "avoTextStyleBarRowDarkTheme": {
+            "description": "BarChart default style for each row",
+            "values": [
+                {
+                    "color": "@avoColorTextPrimaryDarkTheme",
+                    "fontWeight": "@avoDefaultElementFontWeight",
+                    "fontSize": "@avoTextSizeBarRow"
+                }
+            ]
+        },
+        "avoTextStyleTicksLightTheme": {
+            "description": "BarChart default style for chart ticks",
+            "values": [
+                {
+                    "color": "@avoColorTextSecondaryLightTheme",
+                    "fontWeight": "100",
+                    "fontSize": "@avoTextSizeTick"
+                }
+            ]
+        },
+        "avoTextStyleTicksDarkTheme": {
+            "description": "BarChart default style for chart ticks",
+            "values": [
+                {
+                    "color": "@avoColorTextSecondaryDarkTheme",
+                    "fontWeight": "100",
+                    "fontSize": "@avoTextSizeTick"
+                }
+            ]
+        }
+    },
+    "onMount": [],
+    "graphics": {
+        "avoSingleBarGraphic": {
+            "type": "AVG",
+            "version": "1.0",
+            "parameters": [
+                {
+                    "name": "startPoint",
+                    "type": "number",
+                    "default": "0"
+                },
+                {
+                    "name": "barValue",
+                    "description": "Actual raw bar value in the range [0..1].",
+                    "type": "number",
+                    "default": "0"
+                },
+                {
+                    "name": "barColor",
+                    "description": "The fill color.",
+                    "type": "color",
+                    "default": "@avoBarDefaultColor"
+                },
+                {
+                    "name": "barWidth",
+                    "description": "The total width size of the graphic.",
+                    "type": "number"
+                },
+                {
+                    "name": "barHeight",
+                    "description": "The total height.",
+                    "type": "number"
+                },
+                {
+                    "name": "capDir",
+                    "description": "The variable that controls cap direction",
+                    "type": "number",
+                    "default": "1"
+                },
+                {
+                    "name": "capSize",
+                    "description": "The size of the rounded cap.",
+                    "type": "number",
+                    "default": "10"
+                }
+            ],
+            "height": "${barHeight}",
+            "width": "${barWidth}",
+            "items": [
+                {
+                    "type": "path",
+                    "fill": "${barColor}",
+                    "pathData": "m ${startPoint},0 h ${(barValue*barWidth - startPoint)-(capDir*capSize)} c ${capDir*capSize/2},0 ${capDir*capSize},${capSize/2} ${capDir*capSize},${capSize} v ${barHeight-(capSize*2)} c 0,${capSize/2} ${-capDir*capSize/2},${capSize} ${-capDir*capSize},${capSize} H ${startPoint} Z"
+                }
+            ]
+        },
+        "avoRowTicksGraphic": {
+            "type": "AVG",
+            "version": "1.0",
+            "parameters": [
+                {
+                    "name": "tickWidth",
+                    "description": "Width of each vertical tick line.",
+                    "type": "number",
+                    "default": "@avoTickWidth"
+                },
+                {
+                    "name": "tickHeight",
+                    "description": "Height of each vertical tick line.",
+                    "type": "number",
+                    "default": "100"
+                },
+                {
+                    "name": "mainTickPos",
+                    "description": "The position of main tick",
+                    "type": "number",
+                    "default": "0"
+                },
+                {
+                    "name": "mainTickColor",
+                    "description": "Color of the main tick (the first one, usually left-most).",
+                    "type": "color",
+                    "default": "@avoPrimaryTickColor"
+                },
+                {
+                    "name": "secondaryTickColor",
+                    "description": "Color of all the other ticks (not the main one).",
+                    "type": "color",
+                    "default": "@avoSecondaryTicksColor"
+                },
+                {
+                    "name": "numberOfTicks",
+                    "description": "Total number of ticks (max supported: 8).",
+                    "type": "number",
+                    "default": "-1"
+                },
+                {
+                    "name": "rowWidth",
+                    "description": "Total width.",
+                    "type": "number",
+                    "default": "100"
+                },
+                {
+                    "name": "strokeDashSize",
+                    "description": "Size of the strokes and gaps.",
+                    "default": "4"
+                }
+            ],
+            "height": "${tickHeight}",
+            "width": "${rowWidth + tickWidth}",
+            "items": [
+                {
+                    "type": "path",
+                    "stroke": "${mainTickColor}",
+                    "strokeWidth": "${tickWidth}",
+                    "pathData": "M ${mainTickPos},0 v ${tickHeight}"
+                },
+                {
+                    "type": "path",
+                    "stroke": "${secondaryTickColor}",
+                    "strokeWidth": "${tickWidth}",
+                    "pathData": "M 0,0 v ${tickHeight}"
+                },
+                {
+                    "type": "path",
+                    "stroke": "${secondaryTickColor}",
+                    "strokeWidth": "${tickWidth}",
+                    "strokeDashArray": [
+                        "${strokeDashSize}"
+                    ],
+                    "pathData": "M ${(rowWidth/numberOfTicks)*1},0 v ${numberOfTicks >= 1 ? tickHeight : 0} M ${(rowWidth/numberOfTicks)*2},0 v ${numberOfTicks >= 2 ? tickHeight : 0} M ${(rowWidth/numberOfTicks)*3},0 v ${numberOfTicks >= 3 ? tickHeight : 0} M ${(rowWidth/numberOfTicks)*4},0 v ${numberOfTicks >= 4 ? tickHeight : 0} M ${(rowWidth/numberOfTicks)*5},0 v ${numberOfTicks >= 5 ? tickHeight : 0} M ${(rowWidth/numberOfTicks)*6},0 v ${numberOfTicks >= 6 ? tickHeight : 0} M ${(rowWidth/numberOfTicks)*7},0 v ${numberOfTicks >= 7 ? tickHeight : 0} M ${(rowWidth/numberOfTicks)*8},0 v ${numberOfTicks >= 8 ? tickHeight : 0}"
+                }
+            ]
+        }
+    },
+    "commands": {},
+    "layouts": {
+        "avoBarChartBottomLegend": {
+            "parameters": [
+                {
+                    "name": "tickArray",
+                    "description": "Array of Ticks AVO components.",
+                    "type": "array"
+                },
+                {
+                    "name": "unitString",
+                    "description": "(Deprecated - use axisLegendComponent) String that represents the unit (ie 'Ft.').",
+                    "type": "string"
+                },
+                {
+                    "name": "axisLegendComponent",
+                    "description": "Component to be used as axis legend."
+                },
+                {
+                    "name": "negativeValueBuffer",
+                    "description": "space between primary text and bar graph left boarder",
+                    "type": "dimension",
+                    "default": "0vw"
+                },
+                {
+                    "name": "positiveValueBuffer",
+                    "description": "space between primary text and bar graph left boarder",
+                    "type": "dimension",
+                    "default": "0vw"
+                },
+                {
+                    "name": "headerWidth",
+                    "description": "the width of the headers",
+                    "type": "dimension"
+                },
+                {
+                    "name": "barWidth",
+                    "description": "the width of bars",
+                    "type": "dimension"
+                },
+                {
+                    "name": "barHeight",
+                    "description": "the height of bars",
+                    "type": "dimension"
+                },
+                {
+                    "name": "barStartValue",
+                    "type": "number",
+                    "default": 0
+                },
+                {
+                    "name": "theme",
+                    "description": "Color pallet (light/dark). Default to dark",
+                    "type": "string",
+                    "default": "dark"
+                },
+                {
+                    "name": "maxTickWidth",
+                    "type": "number",
+                    "default": 8
+                },
+                {
+                    "name": "startTickIndex",
+                    "type": "number",
+                    "default": 0
+                }
+            ],
+            "item": [
+                {
+                    "type": "Container",
+                    "direction": "row",
+                    "height": "${barHeight}",
+                    "alignItems": "start",
+                    "bind": [
+                        {
+                            "name": "displayLessTicks",
+                            "value": "${maxTickWidth*(tickArray.length - 1)*@avoTextSizeTick > barWidth}"
+                        },
+                        {
+                            "name": "tickWidth",
+                            "value": "${maxTickWidth*(tickArray.length - 1)*@avoTextSizeTick > barWidth ? maxTickWidth*@avoTextSizeTick : barWidth/(tickArray.length-1)}"
+                        },
+                        {
+                            "name": "axisLegendString",
+                            "value": "${axisLegendComponent != null ? axisLegendComponent.textValue : unitString}"
+                        },
+                        {
+                            "name": "axisLegendWidth",
+                            "value": "${axisLegendComponent != null ? (axisLegendComponent.width * @avoTextSizeTick * @avoAxisLabelSizeCorrectionFactor) : (200dp)}"
+                        },
+                        {
+                            "name": "axisLegendCenterX",
+                            "value": "${headerWidth + negativeValueBuffer + (barWidth * barStartValue)}"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "Text",
+                            "height": "${barHeight}",
+                            "paddingRight": "@avoListElementTextPadding",
+                            "width": "${headerWidth-(tickWidth/2)+negativeValueBuffer}"
+                        },
+                        {
+                            "type": "Container",
+                            "direction": "column",
+                            "top": "@avoLegendLabelPadding",
+                            "when": "${!@screenIsTiny}",
+                            "alignItems": "start",
+                            "items": [
+                                {
+                                    "type": "Container",
+                                    "width": "${barWidth+tickWidth}",
+                                    "height": "${barHeight}",
+                                    "data": "${tickArray}",
+                                    "disabled": true,
+                                    "display": "${tickArray.length > 2 ? 'normal' : 'none'}",
+                                    "numbered": true,
+                                    "direction": "row",
+                                    "items": [
+                                        {
+                                            "type": "avoTickListItem",
+                                            "position": "absolute",
+                                            "left": "${data.space * barWidth}",
+                                            "theme": "${theme}",
+                                            "elementIndex": "${index}",
+                                            "tickText": "${data.component.textValue}",
+                                            "totalNumberOfTicks": "${tickArray.length}",
+                                            "barWidth": "${barWidth}",
+                                            "tickWidth": "${displayLessTicks ? ((index % 2) == (startTickIndex % 2) ? tickWidth : 0) : tickWidth}"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Text",
+                            "style": "${theme == 'light' ? 'avoTextStyleTicksLightTheme' : 'avoTextStyleTicksDarkTheme'}",
+                            "textAlign": "${unitString != null ? (barStartValue < 0.01 ? 'left' : (barStartValue > 0.99 ? 'right' : 'center')) : 'center'}",
+                            "textAlignVertical": "top",
+                            "maxLines": 1,
+                            "text": "${axisLegendString}",
+                            "width": "${axisLegendWidth}",
+                            "opacity": 0,
+                            "position": "absolute",
+                            "left": "${axisLegendWidth > barWidth ? ((headerWidth + negativeValueBuffer + barWidth + positiveValueBuffer) * 0.5) - (axisLegendWidth * 0.5) : Math.clamp(headerWidth + negativeValueBuffer, axisLegendCenterX - (axisLegendWidth * 0.5), headerWidth + negativeValueBuffer + barWidth - axisLegendWidth)}",
+                            "top": "${(!@screenIsTiny ? @avoLegendLabelPadding + @avoTextSizeTick + @avoLegendLabelPadding : @avoLegendLabelPadding) - @avoLegendLabelVerticalPadding}",
+                            "onMount": [
+                                {
+                                    "type": "Parallel",
+                                    "delay": "${@avoSecondaryTextElementDelay}",
+                                    "commands": [
+                                        {
+                                            "type": "AnimateItem",
+                                            "easing": "ease-in-out",
+                                            "duration": "@avoTextAnimationTime",
+                                            "value": [
+                                                {
+                                                    "property": "opacity",
+                                                    "to": 1
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "avoTickListItem": {
+            "parameters": [
+                {
+                    "name": "tickWidth",
+                    "description": "width of the tick item",
+                    "type": "number"
+                },
+                {
+                    "name": "elementIndex",
+                    "description": "The index of this tick mark.",
+                    "type": "number"
+                },
+                {
+                    "name": "tickText",
+                    "description": "The text for this tick mark.",
+                    "type": "string"
+                },
+                {
+                    "name": "totalNumberOfTicks",
+                    "description": "The total number of ticks.",
+                    "type": "number"
+                },
+                {
+                    "name": "barWidth",
+                    "type": "dimension"
+                },
+                {
+                    "name": "theme",
+                    "description": "Color pallet (light/dark). Default to dark",
+                    "type": "string",
+                    "default": "dark"
+                }
+            ],
+            "item": [
+                {
+                    "type": "Text",
+                    "style": "${theme == 'light' ? 'avoTextStyleTicksLightTheme' : 'avoTextStyleTicksDarkTheme'}",
+                    "textAlign": "center",
+                    "textAlignVertical": "top",
+                    "maxLines": 1,
+                    "text": "${tickText}",
+                    "width": "${tickWidth}",
+                    "opacity": 0,
+                    "onMount": [
+                        {
+                            "type": "Parallel",
+                            "delay": "${@avoBarAnimationDelay + (elementIndex * @avoPrimaryTextFadeInAnimationDelay)}",
+                            "commands": [
+                                {
+                                    "type": "AnimateItem",
+                                    "easing": "ease-in-out",
+                                    "duration": "@avoTextAnimationTime",
+                                    "value": [
+                                        {
+                                            "property": "opacity",
+                                            "to": 1
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "AnimateItem",
+                                    "easing": "ease-in-out",
+                                    "duration": "${@avoBarAnimationDelay + (elementIndex * @avoPrimaryTextFadeInAnimationDelay)}",
+                                    "value": [
+                                        {
+                                            "property": "transform",
+                                            "from": [
+                                                {
+                                                    "translateX": "${-tickWidth}"
+                                                }
+                                            ],
+                                            "to": [
+                                                {
+                                                    "translateX": "0"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "avoBarListItem": {
+            "parameters": [
+                {
+                    "name": "primaryText",
+                    "description": "The primary text.",
+                    "type": "string"
+                },
+                {
+                    "name": "primaryImage",
+                    "description": "The primary image url",
+                    "type": "string"
+                },
+                {
+                    "name": "secondaryText",
+                    "description": "The secondary (value) text.",
+                    "type": "string"
+                },
+                {
+                    "name": "barValue",
+                    "description": "The actual raw value for this bar in the range [0..1].",
+                    "type": "number"
+                },
+                {
+                    "name": "barColorOverride",
+                    "description": "The color override for this row. If unset, the default color will be used.",
+                    "type": "any"
+                },
+                {
+                    "name": "elementIndex",
+                    "description": "The index of this bar row item.",
+                    "type": "number"
+                },
+                {
+                    "name": "numberOfTicks",
+                    "description": "Total number of ticks.",
+                    "type": "number"
+                },
+                {
+                    "name": "primaryStyle",
+                    "description": "Style of primary component",
+                    "type": "object"
+                },
+                {
+                    "name": "secondaryTextStyle",
+                    "description": "Style of secondary text",
+                    "type": "object"
+                },
+                {
+                    "name": "barStartValue",
+                    "type": "number",
+                    "default": 0
+                },
+                {
+                    "name": "headerWidth",
+                    "description": "the width of the headers",
+                    "type": "dimension"
+                },
+                {
+                    "name": "barWidth",
+                    "description": "width of a bar",
+                    "type": "dimension"
+                },
+                {
+                    "name": "negativeLabelWidth",
+                    "description": "width of the legative label",
+                    "type": "dimension"
+                },
+                {
+                    "name": "positiveLabelWidth",
+                    "description": "width of the positive label",
+                    "type": "dimension"
+                },
+                {
+                    "name": "rowHeight",
+                    "description": "height of a row",
+                    "type": "dimension"
+                },
+                {
+                    "name": "barHeight",
+                    "description": "height of a bar",
+                    "type": "dimension"
+                },
+                {
+                    "name": "theme",
+                    "description": "Color pallet (light/dark). Default to dark",
+                    "type": "string",
+                    "default": "dark"
+                }
+            ],
+            "item": [
+                {
+                    "type": "Container",
+                    "direction": "row",
+                    "height": "${rowHeight}",
+                    "alignItems": "center",
+                    "items": [
+                        {
+                            "alignItems": "end",
+                            "direction": "row",
+                            "items": [
+                                {
+                                    "type": "Text",
+                                    "when": "${primaryText}",
+                                    "style": "${theme == 'light' ? 'avoTextStyleBarRowLightTheme' : 'avoTextStyleBarRowDarkTheme'}",
+                                    "fontWeight": "${primaryStyle.fontWeight ? primaryStyle.fontWeight : @avoDefaultElementFontWeight}",
+                                    "fontStyle": "${primaryStyle.fontStyle ? primaryStyle.fontStyle : 'normal'}",
+                                    "fontSize": "${@avoTextSizeBarRow * (primaryStyle.sizeMultiplier ?? 1.0)}",
+                                    "grow": 1,
+                                    "shrink": 1,
+                                    "position": "relative",
+                                    "textAlign": "${primaryStyle.horizontalAlignment ? primaryStyle.horizontalAlignment : 'right'}",
+                                    "textAlignVertical": "${primaryStyle.verticalAlignment ? primaryStyle.verticalAlignment : 'center'}",
+                                    "maxLines": 1,
+                                    "text": "${primaryText}",
+                                    "lineHeight": 1.1,
+                                    "opacity": 0,
+                                    "width": "${headerWidth}",
+                                    "height": "${rowHeight}",
+                                    "onMount": [
+                                        {
+                                            "type": "Parallel",
+                                            "delay": "${@avoPrimaryTextFadeInAnimationDelay + elementIndex * @avoPrimaryTextElementDelay}",
+                                            "commands": [
+                                                {
+                                                    "type": "AnimateItem",
+                                                    "easing": "ease-in-out",
+                                                    "duration": "@avoTextAnimationTime",
+                                                    "value": [
+                                                        {
+                                                            "property": "opacity",
+                                                            "to": 1
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "source": "${primaryImage}",
+                                    "scale": "best-fit",
+                                    "align": "${primaryStyle.horizontalAlignment ? primaryStyle.horizontalAlignment : 'center'}",
+                                    "type": "Image",
+                                    "when": "${primaryImage}",
+                                    "height": "${rowHeight}",
+                                    "paddingLeft": "10"
+                                }
+                            ],
+                            "type": "Container",
+                            "width": "${headerWidth}",
+                            "height": "${rowHeight}",
+                            "paddingRight": "@avoListElementTextPadding"
+                        },
+                        {
+                            "type": "Container",
+                            "height": "${rowHeight}",
+                            "alignItems": "center",
+                            "direction": "row",
+                            "grow": 0,
+                            "width": "${barWidth + negativeLabelWidth + positiveLabelWidth}",
+                            "onMount": [
+                                {
+                                    "type": "Parallel",
+                                    "delay": "@avoBarAnimationDelay",
+                                    "commands": [
+                                        {
+                                            "type": "AnimateItem",
+                                            "easing": "ease-in-out",
+                                            "duration": "@avoBarAnimationTime",
+                                            "value": [
+                                                {
+                                                    "property": "transform",
+                                                    "from": [
+                                                        {
+                                                            "translateX": "-${(barWidth + negativeLabelWidth + positiveLabelWidth) / 2}"
+                                                        },
+                                                        {
+                                                            "scaleX": 0
+                                                        }
+                                                    ],
+                                                    "to": [
+                                                        {
+                                                            "translateX": "0"
+                                                        },
+                                                        {
+                                                            "scaleX": 1
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ],
+                            "items": [
+                                {
+                                    "type": "Text",
+                                    "position": "absolute",
+                                    "left": 0,
+                                    "width": "${negativeLabelWidth}"
+                                },
+                                {
+                                    "type": "VectorGraphic",
+                                    "alignSelf": "stretch",
+                                    "position": "absolute",
+                                    "align": "left",
+                                    "left": "${negativeLabelWidth}",
+                                    "top": "0",
+                                    "right": "0",
+                                    "bottom": "0",
+                                    "source": "avoRowTicksGraphic",
+                                    "scale": "none",
+                                    "numberOfTicks": "${numberOfTicks}",
+                                    "rowWidth": "${barWidth-1}",
+                                    "tickHeight": "${rowHeight}",
+                                    "mainTickPos": "${barStartValue * barWidth}"
+                                },
+                                {
+                                    "type": "VectorGraphic",
+                                    "source": "avoSingleBarGraphic",
+                                    "align": "left",
+                                    "scale": "none",
+                                    "position": "absolute",
+                                    "left": "${negativeLabelWidth}",
+                                    "startPoint": "${barStartValue * barWidth}",
+                                    "capDir": "${barValue >= barStartValue ? 1 : -1}",
+                                    "width": "${barValue >= barStartValue ? barValue * barWidth : barStartValue * barWidth}",
+                                    "height": "${barHeight}",
+                                    "barColor": "${barColorOverride != null ? barColorOverride : @avoBarDefaultColor}",
+                                    "barValue": "${barValue}",
+                                    "barWidth": "${barWidth}",
+                                    "barHeight": "${barHeight}",
+                                    "capSize": "@avoBarCapSize"
+                                },
+                                {
+                                    "type": "Text",
+                                    "style": "${theme == 'light' ? 'avoTextStyleBarRowLightTheme' : 'avoTextStyleBarRowDarkTheme'}",
+                                    "position": "absolute",
+                                    "left": "${barValue >= barStartValue ? barValue * barWidth + negativeLabelWidth : barValue * barWidth}",
+                                    "width": "${barValue >= barStartValue ? positiveLabelWidth : negativeLabelWidth}",
+                                    "fontSize": "${@avoTextSizeBarRow * (secondaryTextStyle.sizeMultiplier ?? 1.0)}",
+                                    "fontWeight": "${secondaryTextStyle.fontWeight ? secondaryTextStyle.fontWeight : @avoDefaultElementFontWeight}",
+                                    "fontStyle": "${secondaryTextStyle.fontStyle ? secondaryTextStyle.fontStyle : 'normal'}",
+                                    "paddingLeft": "${barValue >= barStartValue ? @avoListElementTextPadding : 0}",
+                                    "paddingRight": "${barValue < barStartValue ? @avoListElementTextPadding : 0}",
+                                    "textAlign": "${barValue >= barStartValue ? 'left' : 'right'}",
+                                    "textAlignVertical": "${secondaryTextStyle.verticalAlignment ? secondaryTextStyle.verticalAlignment : 'center'}",
+                                    "maxLines": 1,
+                                    "text": "${secondaryText}",
+                                    "opacity": 0,
+                                    "onMount": [
+                                        {
+                                            "type": "Parallel",
+                                            "delay": "${@avoSecondaryTextFadeInAnimationDelay + elementIndex * @avoPrimaryTextElementDelay}",
+                                            "commands": [
+                                                {
+                                                    "type": "AnimateItem",
+                                                    "easing": "ease-in-out",
+                                                    "duration": "@avoTextAnimationTime",
+                                                    "value": [
+                                                        {
+                                                            "property": "opacity",
+                                                            "to": 1
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "avoBarChartLayout": {
+            "parameters": [
+                {
+                    "name": "visualObjectData",
+                    "description": "VisualObject data - must be an object with at least a child object titled 'barChartData'.",
+                    "type": "object"
+                },
+                {
+                    "name": "height",
+                    "description": "Desired height",
+                    "type": "dimension"
+                },
+                {
+                    "name": "width",
+                    "description": "Desired width",
+                    "type": "dimension"
+                },
+                {
+                    "name": "theme",
+                    "description": "Color pallet (light/dark). Default to dark",
+                    "type": "string",
+                    "default": "dark"
+                },
+                {
+                    "name": "disableTouchInteraction",
+                    "type": "boolean",
+                    "description": "If true, this VisualObject layout will not respond to touch interactions.",
+                    "default": false
+                }
+            ],
+            "item": [
+                {
+                    "type": "Container",
+                    "id": "avoBarChartMainContainer",
+                    "direction": "column",
+                    "height": "${height}",
+                    "width": "${width}",
+                    "justifyContent": "center",
+                    "alignSelf": "center",
+                    "bind": [
+                        {
+                            "name": "bottomLegendHeight",
+                            "value": "${(@avoTextSizeTick + @avoLegendLabelPadding) + (@screenIsTiny ? 0 : @avoLegendLabelPadding + @avoTextSizeTick)}"
+                        },
+                        {
+                            "name": "rowItemHeight",
+                            "value": "${Math.max((height - bottomLegendHeight) / visualObjectData.barChartData.barRecords.length, @avoMinRowHeight)}"
+                        },
+                        {
+                            "name": "barHeight",
+                            "value": "${Math.min(rowItemHeight - (2 * @avoMinBarPadding), @avoMaxBarHeight)}"
+                        },
+                        {
+                            "name": "longestRowLabel",
+                            "value": "${visualObjectData.barChartData.longestRowLabel ?? 12}"
+                        },
+                        {
+                            "name": "longestPositiveValueLabel",
+                            "value": "${visualObjectData.barChartData.longestPositiveValueLabel ?? 6}"
+                        },
+                        {
+                            "name": "longestNegativeValueLabel",
+                            "value": "${visualObjectData.barChartData.longestNegativeValueLabel ?? 0}"
+                        },
+                        {
+                            "name": "barRowHeaderWidth",
+                            "value": "${Math.min((longestRowLabel * @avoTextSizeBarRow * @avoBarLabelSizeCorrectionFactor) + @avoListElementTextPadding, width * @avoMaxHeaderWidthPercentage)}"
+                        },
+                        {
+                            "name": "barPositiveValueBuffer",
+                            "value": "${Math.min((longestPositiveValueLabel * @avoTextSizeBarRow * @avoBarLabelSizeCorrectionFactor) + @avoListElementTextPadding, width * @avoMaxLabelWidthPercentage)}"
+                        },
+                        {
+                            "name": "barNegativeValueBuffer",
+                            "value": "${longestNegativeValueLabel == 0 ? 0 : Math.min((longestNegativeValueLabel * @avoTextSizeBarRow * @avoBarLabelSizeCorrectionFactor) + @avoListElementTextPadding, width * @avoMaxLabelWidthPercentage)}"
+                        },
+                        {
+                            "name": "barRowValueWidth",
+                            "value": "${width - barRowHeaderWidth - barNegativeValueBuffer - barPositiveValueBuffer}"
+                        }
+                    ],
+                    "items": [
+                        {
+                            "type": "Sequence",
+                            "id": "barsSequence",
+                            "height": "${height - bottomLegendHeight}",
+                            "width": "${width}",
+                            "grow": 0,
+                            "data": "${visualObjectData.barChartData.barRecords}",
+                            "numbered": true,
+                            "scrollDirection": "vertical",
+                            "items": [
+                                {
+                                    "type": "avoBarListItem",
+                                    "theme": "${theme}",
+                                    "primaryText": "${data.primaryComponent.textValue}",
+                                    "primaryImage": "${data.primaryComponent.imageUrl}",
+                                    "primaryStyle": "${data.primaryComponent.style}",
+                                    "secondaryText": "${data.secondaryComponent.textValue}",
+                                    "secondaryTextStyle": "${data.secondaryComponent.style}",
+                                    "barStartValue": "${visualObjectData.barChartData.barStartValue ?? 0}",
+                                    "barValue": "${data.barValue}",
+                                    "barColorOverride": "${data.barColor}",
+                                    "elementIndex": "${index}",
+                                    "numberOfTicks": "${visualObjectData.barChartData.ticks.length ? (visualObjectData.barChartData.ticks.length - 1) : (visualObjectData.barChartData.chartTickList.ticks.length - 1)}",
+                                    "headerWidth": "${barRowHeaderWidth}",
+                                    "barWidth": "${barRowValueWidth}",
+                                    "negativeLabelWidth": "${barNegativeValueBuffer}",
+                                    "positiveLabelWidth": "${barPositiveValueBuffer}",
+                                    "barHeight": "${barHeight}",
+                                    "rowHeight": "${rowItemHeight}"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "avoBarChartBottomLegend",
+                            "theme": "${theme}",
+                            "tickArray": "${visualObjectData.barChartData.ticks ?? visualObjectData.barChartData.chartTickList.ticks}",
+                            "unitString": "${visualObjectData.barChartData.unitText}",
+                            "axisLegendComponent": "${visualObjectData.barChartData.axisLegend}",
+                            "headerWidth": "${barRowHeaderWidth}",
+                            "barWidth": "${barRowValueWidth}",
+                            "barHeight": "${bottomLegendHeight}",
+                            "negativeValueBuffer": "${barNegativeValueBuffer}",
+                            "positiveValueBuffer": "${barPositiveValueBuffer}",
+                            "barStartValue": "${visualObjectData.barChartData.barStartValue ?? 0}",
+                            "maxTickWidth": "${visualObjectData.barChartData.tickMaxWidth ?? (visualObjectData.barChartData.chartTickList.tickMaxWidth ?? 3)}",
+                            "startTickIndex": "${visualObjectData.barChartData.startTickIndex ?? (visualObjectData.barChartData.chartTickList.startTickIndex ?? 0)}"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "mainTemplate": {
+        "parameters": [
+            "payload"
+        ],
+        "item": [
+            {
+                "type": "Container",
+                "width": "100vw",
+                "height": "100vh",
+                "direction": "column",
+                "items": [
+                    {
+                        "type": "Image",
+                        "source": "${payload.metadata.backgroundImage}",
+                        "scale": "best-fill",
+                        "width": "100vw",
+                        "height": "100vh",
+                        "position": "absolute"
+                    },
+                    {
+                        "type": "Text",
+                        "text": "${String.toUpperCase(payload.metadata.title)}",
+                        "fontWeight": "700",
+                        "fontSize": 28,
+                        "paddingTop": "32",
+                        "paddingBottom": "16",
+                        "paddingLeft": "6.25vw",
+                        "paddingRight": "6.25vw",
+                        "height": "90dp",
+                        "display": "${viewport.shape == 'round' ? 'invisible' : 'normal'}",
+                        "color": "${viewport.theme == 'light' ? @avoColorTextSecondaryLightTheme : @avoColorTextSecondaryDarkTheme}"
+                    },
+                    {
+                        "type": "avoBarChartLayout",
+                        "width": "${viewport.shape == 'round' ? 70vw : 100vw}",
+                        "height": "${100vh - (90dp * (viewport.shape == 'round' ? 2.0 : 1.5))}",
+                        "visualObjectData": "${payload.visualObjectData}"
+                    }
+                ]
+            }
+        ]
+    }
+}
