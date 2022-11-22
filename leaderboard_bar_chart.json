@@ -61,7 +61,35 @@
             }
         },
         {
-            "description": "BarChart Bishop resources.",
+            "description": "BarChart TV (Stark) resources.",
+            "when": "${@viewportProfileGroup == @tvLandscapeXLarge}",
+            "dimensions": {
+                "avoListElementTextPadding": "24dp",
+                "avoLegendLabelPadding": "6dp",
+                "avoMinBarPadding": "18dp",
+                "avoMaxBarHeight": "36dp",
+                "avoMinRowHeight": "62dp",
+                "avoTextSizeBarRow": "26dp",
+                "avoTextSizeTick": "20dp",
+                "avoBarCapSize": "4dp"
+            }
+        },
+        {
+            "description": "BarChart Show 15 resources.",
+            "when": "${@viewportProfile == @hubLandscapeXLarge}",
+            "dimensions": {
+                "avoListElementTextPadding": "24dp",
+                "avoLegendLabelPadding": "6dp",
+                "avoMinBarPadding": "18dp",
+                "avoMaxBarHeight": "36dp",
+                "avoMinRowHeight": "40dp",
+                "avoTextSizeBarRow": "26dp",
+                "avoTextSizeTick": "20dp",
+                "avoBarCapSize": "4dp"
+            }
+        },
+        {
+            "description": "BarChart Show 10 resources.",
             "when": "${@viewportProfile == @hubLandscapeLarge}",
             "dimensions": {
                 "avoListElementTextPadding": "32dp",
@@ -72,28 +100,28 @@
             }
         },
         {
-            "description": "BarChart TV (Stark) resources.",
-            "when": "${@viewportProfileGroup == @tv}",
+            "description": "BarChart Show 8 resources.",
+            "when": "${@viewportProfile == @hubLandscapeMedium}",
             "dimensions": {
-                "avoListElementTextPadding": "${@avoListElementTextPadding / 2}",
-                "avoLegendLabelPadding": "${@avoLegendLabelPadding / 2}",
-                "avoMinBarPadding": "${@avoMinBarPadding / 2}",
-                "avoMaxBarHeight": "${@avoMaxBarHeight / 2}",
-                "avoMinRowHeight": "${@avoMinRowHeight / 2}",
-                "avoTextSizeBarRow": "${@avoTextSizeBarRow / 2}",
-                "avoTextSizeTick": "${@avoTextSizeTick / 2}",
-                "avoBarCapSize": "${@avoBarCapSize / 2}"
+                "avoListElementTextPadding": "24dp",
+                "avoLegendLabelPadding": "6dp",
+                "avoMinBarPadding": "10dp",
+                "avoMaxBarHeight": "36dp",
+                "avoMinRowHeight": "40dp",
+                "avoTextSizeBarRow": "26dp",
+                "avoTextSizeTick": "20dp",
+                "avoBarCapSize": "4dp"
             }
         },
         {
-            "description": "BarChart Checkers resources.",
+            "description": "BarChart Show 5 resources.",
             "when": "${@viewportProfile == @hubLandscapeSmall}",
             "dimensions": {
                 "avoListElementTextPadding": "24dp",
                 "avoLegendLabelPadding": "6dp",
                 "avoMinBarPadding": "10dp",
                 "avoMaxBarHeight": "36dp",
-                "avoMinRowHeight": "48dp",
+                "avoMinRowHeight": "36dp",
                 "avoTextSizeBarRow": "26dp",
                 "avoTextSizeTick": "20dp",
                 "avoBarCapSize": "4dp"
@@ -409,6 +437,7 @@
                             "items": [
                                 {
                                     "type": "Container",
+                                    "id": "xAxisContainer",
                                     "width": "${barWidth+tickWidth}",
                                     "height": "${barHeight}",
                                     "data": "${tickArray}",
@@ -434,6 +463,7 @@
                         },
                         {
                             "type": "Text",
+                            "when": "${axisLegendString != null && axisLegendString != ''}",
                             "style": "${theme == 'light' ? 'avoTextStyleTicksLightTheme' : 'avoTextStyleTicksDarkTheme'}",
                             "textAlign": "${unitString != null ? (barStartValue < 0.01 ? 'left' : (barStartValue > 0.99 ? 'right' : 'center')) : 'center'}",
                             "textAlignVertical": "top",
@@ -670,7 +700,7 @@
                                     "lineHeight": 1.1,
                                     "opacity": 0,
                                     "width": "${headerWidth}",
-                                    "height": "${rowHeight}",
+                                    "height": "${rowHeight*0.8}",
                                     "onMount": [
                                         {
                                             "type": "Parallel",
@@ -697,14 +727,16 @@
                                     "align": "${primaryStyle.horizontalAlignment ? primaryStyle.horizontalAlignment : 'center'}",
                                     "type": "Image",
                                     "when": "${primaryImage}",
-                                    "height": "${rowHeight}",
+                                    "height": "${rowHeight*0.8}",
                                     "paddingLeft": "10"
                                 }
                             ],
                             "type": "Container",
                             "width": "${headerWidth}",
                             "height": "${rowHeight}",
-                            "paddingRight": "@avoListElementTextPadding"
+                            "paddingRight": "@avoListElementTextPadding",
+                            "paddingBottom": "5dp",
+                            "paddingTop": "5dp"
                         },
                         {
                             "type": "Container",
@@ -875,7 +907,7 @@
                         },
                         {
                             "name": "rowItemHeight",
-                            "value": "${Math.max((height - bottomLegendHeight) / visualObjectData.barChartData.barRecords.length, @avoMinRowHeight)}"
+                            "value": "${Math.max((height - bottomLegendHeight) / (visualObjectData.barChartData.barRecords.length+0), @avoMinRowHeight)}"
                         },
                         {
                             "name": "barHeight",
@@ -998,7 +1030,7 @@
                     {
                         "type": "avoBarChartLayout",
                         "width": "${viewport.shape == 'round' ? 70vw : 100vw}",
-                        "height": "${100vh - (90dp * (viewport.shape == 'round' ? 2.0 : 1.5))}",
+                        "height": "${100vh - (90dp * (viewport.shape == 'round' ? 2.0 : 1.0))}",
                         "visualObjectData": "${payload.visualObjectData}"
                     }
                 ]
