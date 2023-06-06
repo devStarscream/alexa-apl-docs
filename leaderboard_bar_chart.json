@@ -726,7 +726,7 @@
                                     "scale": "best-fit",
                                     "align": "${primaryStyle.horizontalAlignment ? primaryStyle.horizontalAlignment : 'center'}",
                                     "type": "Image",
-                                    "when": "${primaryImage}",
+                                    "when": "${primaryImage.length > 0}",
                                     "height": "${rowHeight*0.8}",
                                     "paddingLeft": "10"
                                 }
